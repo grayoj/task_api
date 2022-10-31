@@ -17,7 +17,8 @@ http method
 
 // Import dependencies
 const express = require("express");
-const dotenv = require("dotenv");
+const connectDB = require("./db/connect");
+require("dotenv").config();
 const taskRoute = require("./routes/taskRoute")
 
 // Initialize Express
@@ -33,8 +34,17 @@ app.use('/api/tasks', taskRoute);
 
 // Port configuration
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Our Server is Up on port ${PORT}`));
 
+const start = async () => {
+    try {
+        await connectDB(process.env.MONGO_URI)
+        app.listen(PORT, () => console.log(`Our Server is Up on port ${PORT}`));
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+start();
 
 //Endpoints
 
