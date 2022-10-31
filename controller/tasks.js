@@ -7,7 +7,7 @@ const getAllTasks = (req, res) => {
 
 const createTask = async (req, res) => {
     const task = await Task.create({ name: 'first task' })
-    res.send(req.body)
+    res.satus(201).json({ task })
 }
 
 const getTask = (req, res) => {
